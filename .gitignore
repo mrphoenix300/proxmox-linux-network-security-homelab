@@ -1,0 +1,26 @@
+# Credentials and sensitive files
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.ovpn
+*wg*.conf
+*backup*.xml
+*config*.xml
+*.db
+*.sqlite
+*.sqlite3
+*.tar
+*.tar.gz
+*.qcow2
+*.vma*
+*.img
+*.iso
+*.log
+.DS_Store
+Thumbs.db
+# Screenshots intentionally reviewed before adding
+screenshots/*
+!screenshots/README.md

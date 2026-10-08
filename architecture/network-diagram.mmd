@@ -1,0 +1,14 @@
+flowchart TD
+    Internet[Internet] --> Router[Home router 192.168.50.1]
+    Router --> vmbr0[Proxmox vmbr0 - home LAN 192.168.50.0/24]
+    vmbr0 --> PVE[Proxmox pve 192.168.50.10]
+    vmbr0 --> Debian[Debian VM 100 - 192.168.50.3]
+    Debian --> PiHole[Pi-hole DNS]
+    Debian --> Docker[Docker monitoring bridge 172.20.0.0/16]
+    Docker --> Kuma[Uptime Kuma :3001]
+    Docker --> Portainer[Portainer :9000]
+    vmbr0 --> WAN[pfSense VM 101 WAN - DHCP]
+    WAN --> LAN[pfSense LAN - 10.50.10.1/24]
+    LAN --> vmbr1[Proxmox vmbr1 - isolated bridge]
+    vmbr1 --> Alpine[Alpine VM 102 - 10.50.10.100]
+    PVE -. temporary management IP 10.50.10.2 .-> vmbr1
