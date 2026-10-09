@@ -4,8 +4,8 @@
 
 - Lenovo ThinkPad X201, 4 GB RAM, 128 GB SSD
 - Proxmox VE hypervisor; managed from a Pop!_OS desktop
-- Home router / gateway: `192.168.50.1`
-- Proxmox management: `192.168.50.10`
+- Home router / gateway: `192.0.2.1`
+- Proxmox management: `192.0.2.10`
 
 ## VMs
 
@@ -21,7 +21,7 @@
 
 - `vmbr0`: physical/home LAN; Proxmox management and Debian; pfSense WAN.
 - `vmbr1`: internal-only Linux bridge without physical bridge port; pfSense LAN and Alpine client.
-- pfSense WAN uses DHCP (observed `192.168.50.16/24`); pfSense LAN uses `10.50.10.1/24`.
+- pfSense WAN uses DHCP (observed `192.0.2.16/24`); pfSense LAN uses `198.51.100.1/24`.
 
 ## Resource constraints
 

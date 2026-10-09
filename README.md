@@ -2,7 +2,7 @@
 
 **A hands-on infrastructure, Linux administration and network security project, built on a Lenovo ThinkPad X201 (4 GB RAM / 128 GB SSD).**
 
-> **Publication note:** All IPv4 addresses in this public repository are **illustrative private-network examples**, intentionally different from the deployment. Copying these commands directly into another environment may not work. No public WAN address is included.
+> **Publication note:** All deployment IPv4 addresses use RFC 5737 TEST-NET documentation-only ranges, not real network addresses. These examples are not operational subnets. Commands containing them are illustrative and must not be run verbatim. No public WAN IP is included.
 
 > **Status:** Debian/Docker stack and pfSense lab tested. Remote VPN and full disaster-recovery verification are **not implemented**.
 
@@ -25,11 +25,11 @@ This project explores operating a small virtualized infrastructure under strict 
 
 ## Architecture
 
-- **Management/home LAN (`192.168.50.0/24`)** runs on `vmbr0`. Proxmox management is at `192.168.50.10`; Debian is at `192.168.50.3`.
-- **Isolated lab LAN (`10.50.10.0/24`)** runs on `vmbr1`, which has **no physical bridge port**. The pfSense WAN is on `vmbr0` (DHCP; observed `192.168.50.16`), and LAN is `10.50.10.1/24`.
-- **Alpine test VM** connects **only** to `vmbr1` and was assigned `10.50.10.100` by pfSense DHCP.
-- **Docker `monitoring` network:** `172.20.0.0/16`; Uptime Kuma checks Portainer by Docker DNS at `http://portainer:9000`.
-- **pfSense web administration** was reached via an SSH tunnel on Proxmox, using a **temporary** `10.50.10.2/24` address on `vmbr1`.
+- **Management/home LAN (`192.0.2.0/24`)** runs on `vmbr0`. Proxmox management is at `192.0.2.10`; Debian is at `192.0.2.3`.
+- **Isolated lab LAN (`198.51.100.0/24`)** runs on `vmbr1`, which has **no physical bridge port**. The pfSense WAN is on `vmbr0` (DHCP; observed `192.0.2.16`), and LAN is `198.51.100.1/24`.
+- **Alpine test VM** connects **only** to `vmbr1` and was assigned `198.51.100.100` by pfSense DHCP.
+- **Docker `monitoring` network:** `203.0.113.0/24`; Uptime Kuma checks Portainer by Docker DNS at `http://portainer:9000`.
+- **pfSense web administration** was reached via an SSH tunnel on Proxmox, using a **temporary** `198.51.100.2/24` address on `vmbr1`.
 
 **Important:** pfSense does **not** replace the home router, and the Debian VM is **not** behind pfSense. The pfSense instance routes only its isolated test network in this design.
 
@@ -52,7 +52,7 @@ This project explores operating a small virtualized infrastructure under strict 
 
 ## Troubleshooting highlight
 
-**Problem:** Containers configured with `192.168.50.3:3001` and `192.168.50.3:9000` failed after Debian reboot with `bind: cannot assign requested address`.
+**Problem:** Containers configured with `192.0.2.3:3001` and `192.0.2.3:9000` failed after Debian reboot with `bind: cannot assign requested address`.
 
 **Investigation:** `docker inspect`, container states and Docker daemon logs revealed that the host IPv4 address was not yet available when Docker attempted to bind the published ports.
 

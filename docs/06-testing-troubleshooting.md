@@ -7,20 +7,20 @@ Test commands from Alpine:
 ```sh
 ip -4 addr show eth0
 ip route
-ping -c 4 10.50.10.1
+ping -c 4 198.51.100.1
 ping -c 4 1.1.1.1
 ping -c 4 8.8.8.8
 nslookup google.com
 ```
 
-Initially `eth0` had no DHCP address; running `ip link set eth0 up` and `udhcpc -i eth0 -n -q` obtained `10.50.10.100` from pfSense at `10.50.10.1`. Gateway, Internet ping and DNS resolution were subsequently successful.
+Initially `eth0` had no DHCP address; running `ip link set eth0 up` and `udhcpc -i eth0 -n -q` obtained `198.51.100.100` from pfSense at `198.51.100.1`. Gateway, Internet ping and DNS resolution were subsequently successful.
 
 ## Firewall exercise: targeted ICMP block
 
 In pfSense **Firewall -> Rules -> LAN**, created a rule **above** the default IPv4 allow:
 
 - Action `BLOCK`; protocol IPv4 ICMP echo request
-- Source: `10.50.10.100`
+- Source: `198.51.100.100`
 - Destination: `1.1.1.1`
 
 Observed: ping to `1.1.1.1` failed (100% loss), while ping to `8.8.8.8` and DNS resolution succeeded. The test rule was then deleted and changes applied; ping to `1.1.1.1` succeeded again.
@@ -29,7 +29,7 @@ Observed: ping to `1.1.1.1` failed (100% loss), while ping to `8.8.8.8` and DNS 
 
 **Symptom:** Docker containers did not start after Debian reboot (`Exited (128)`/`Exited (2)`).
 
-**Evidence:** `docker inspect` error strings referenced failed bind of `192.168.50.3:3001` and `192.168.50.3:9000` with `cannot assign requested address`.
+**Evidence:** `docker inspect` error strings referenced failed bind of `192.0.2.3:3001` and `192.0.2.3:9000` with `cannot assign requested address`.
 
 **Resolution:** Recreated containers with IPv4 `0.0.0.0` port mappings, preserved volumes and network membership, and retained restricted Docker `DOCKER-USER` inbound rules. Reboot test then showed Kuma healthy, Portainer running and successful HTTP checks (`200` and `302`).
 

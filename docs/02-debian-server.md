@@ -2,7 +2,7 @@
 
 ## Purpose
 
-VM 100 (`debian-lab`) is a minimal Debian Linux server on `vmbr0` at `192.168.50.3/24`. It hosts Pi-hole and Docker-based services and is administered over SSH from the home LAN.
+VM 100 (`debian-lab`) is a minimal Debian Linux server on `vmbr0` at `192.0.2.3/24`. It hosts Pi-hole and Docker-based services and is administered over SSH from the home LAN.
 
 ## Observed services
 
@@ -18,7 +18,7 @@ VM 100 (`debian-lab`) is a minimal Debian Linux server on `vmbr0` at `192.168.50
 Pi-hole was checked from the Kuma container with:
 
 ```sh
-docker exec uptime-kuma curl --connect-timeout 5 -I http://192.168.50.3/admin/
+docker exec uptime-kuma curl --connect-timeout 5 -I http://192.0.2.3/admin/
 ```
 
 Observed result: `HTTP/1.1 302 Found`, redirecting to `/admin/login`. This confirms the HTTP service was reachable from the container; it does not prove every DNS filtering feature was tested.
@@ -26,7 +26,7 @@ Observed result: `HTTP/1.1 302 Found`, redirecting to `/admin/login`. This confi
 ## Administration
 
 ```sh
-ssh <debian-user>@192.168.50.3
+ssh <debian-user>@192.0.2.3
 sudo ufw status verbose
 sudo ss -tulpn
 ```

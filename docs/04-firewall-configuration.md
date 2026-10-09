@@ -4,11 +4,11 @@ This project uses several **different** enforcement points. They should not be t
 
 ## Proxmox host firewall
 
-Datacenter options reported: firewall enabled, input DROP, output ACCEPT, forward ACCEPT. On node `pve`, allow rules from `192.168.50.0/24` were added for TCP 8006 (management UI), TCP 22 (SSH), and ICMP troubleshooting. Administrative connectivity was confirmed after these changes.
+Datacenter options reported: firewall enabled, input DROP, output ACCEPT, forward ACCEPT. On node `pve`, allow rules from `192.0.2.0/24` were added for TCP 8006 (management UI), TCP 22 (SSH), and ICMP troubleshooting. Administrative connectivity was confirmed after these changes.
 
 ## Proxmox Debian VM firewall
 
-For VM 100, Proxmox-level inbound allow rules from `192.168.50.0/24` cover TCP 22, TCP/UDP 53, TCP 80, TCP 443, UDP 123, TCP 3001 and TCP 9000; inbound policy DROP, outbound ACCEPT.
+For VM 100, Proxmox-level inbound allow rules from `192.0.2.0/24` cover TCP 22, TCP/UDP 53, TCP 80, TCP 443, UDP 123, TCP 3001 and TCP 9000; inbound policy DROP, outbound ACCEPT.
 
 ## Debian UFW
 
@@ -16,8 +16,8 @@ Incoming DENY, outgoing ALLOW, routed DENY. Host LAN allows:
 
 | Source | Port/protocol |
 |---|---|
-| `192.168.50.0/24` | TCP 22, 53, 80, 443; UDP 53, 123 |
-| `172.20.0.0/16` | TCP 80, 443 **to `192.168.50.3` only**, for Kuma-to-Pi-hole monitoring |
+| `192.0.2.0/24` | TCP 22, 53, 80, 443; UDP 53, 123 |
+| `203.0.113.0/24` | TCP 80, 443 **to `192.0.2.3` only**, for Kuma-to-Pi-hole monitoring |
 
 IPv6 handling is enabled in UFW, but complete IPv6 external exposure testing was not performed.
 
@@ -27,7 +27,7 @@ Installed IPv4 forwarding rules, checked after reboot:
 
 ```text
 1 ACCEPT  in=ens18  ctstate ESTABLISHED,RELATED
-2 ACCEPT  in=ens18  src=192.168.50.0/24  ctstate NEW
+2 ACCEPT  in=ens18  src=192.0.2.0/24  ctstate NEW
 3 DROP    in=ens18  ctstate NEW
 4 RETURN  everything else
 ```

@@ -4,7 +4,7 @@ This repository is **documentation**, not a set of automated rules to deploy bli
 
 ## Public version privacy policy
 
-Private IP addresses in this repository have been changed to **illustrative examples** (`192.168.50.0/24`, `10.50.10.0/24`, `172.20.0.0/16`). These values are **not** a runnable copy of the deployed network. Never upload original system configuration, unredacted screenshots, or raw backups.
+All environment IP addresses use **RFC 5737 documentation-only TEST-NET ranges** (`192.0.2.0/24`, `198.51.100.0/24`, `203.0.113.0/24`). These are illustrative and not suitable for actual deployment. Do not run commands containing them verbatim. Never publish original configuration exports, raw backups or unredacted screenshots.
 
 ## Keep out of GitHub
 
@@ -18,7 +18,7 @@ Private IP addresses in this repository have been changed to **illustrative exam
 ## Scope and limits
 
 - No VPN or router port forwarding was configured for the new lab.
-- LAN firewall allowlists use RFC1918 addresses; local-only network policy is not equivalent to proof of external non-reachability.
+- Real LAN firewall allowlists use private IPv4 addresses; local-only network policy is not equivalent to proof of external non-reachability.
 - Docker published services listen on all IPv4 interfaces, protected by a set of forwarding/firewall rules that require periodic auditing.
 - The temporary host IP on `vmbr1` enables management of the isolated pfSense LAN; it does not, by itself, enable IP forwarding.
 - Consider a separate management user with SSH keys and least-privilege privileges as future work.
