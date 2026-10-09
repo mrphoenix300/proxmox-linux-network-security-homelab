@@ -19,7 +19,7 @@
 <g id="node2" class="node">
 <title>router</title>
 <path fill="#eff5fb" stroke="#8095ad" d="M232.5,-448C232.5,-448 140.5,-448 140.5,-448 134.5,-448 128.5,-442 128.5,-436 128.5,-436 128.5,-418 128.5,-418 128.5,-412 134.5,-406 140.5,-406 140.5,-406 232.5,-406 232.5,-406 238.5,-406 244.5,-412 244.5,-418 244.5,-418 244.5,-436 244.5,-436 244.5,-442 238.5,-448 232.5,-448"/>
-<text text-anchor="middle" x="186.5" y="-430.2" font-family="DejaVu Sans" font-size="11.00">COSMOTE router</text>
+<text text-anchor="middle" x="186.5" y="-430.2" font-family="DejaVu Sans" font-size="11.00">Home router</text>
 <text text-anchor="middle" x="186.5" y="-418.2" font-family="DejaVu Sans" font-size="11.00">192.168.50.1</text>
 </g>
 <!-- internet&#45;&gt;router -->
