@@ -16,7 +16,7 @@
 | LAN | `198.51.100.1/24` | Isolated lab network |
 | Alpine | DHCP, observed `198.51.100.100/24` | Test client |
 
-Configured LAN DHCP pool: `198.51.100.100`–`198.51.100.199`. WAN **Block private networks** disabled due to RFC1918 WAN addressing behind the home router; **Block bogon networks** enabled in the wizard.
+Configured LAN DHCP pool: `198.51.100.100`–`198.51.100.199`. WAN **Block private networks** disabled due to private RFC1918 addressing on the real home network (shown here as anonymized TEST-NET addresses); **Block bogon networks** enabled in the wizard.
 
 General pfSense setup: hostname `pfsense-lab`, domain `home.arpa`, DNS resolvers `1.1.1.1` and `1.0.0.1`, time zone `Europe/Athens`. Default admin password was changed.
 

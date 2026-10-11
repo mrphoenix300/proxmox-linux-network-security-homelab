@@ -79,6 +79,6 @@ This project explores operating a small virtualized infrastructure under strict 
 
 ## Scope and safety
 
-All network addresses in this repository are **anonymized RFC1918 examples** and are not the actual deployed address plan. No passwords, VPN keys, tokens or complete router configuration are included. Screenshots are intentionally omitted pending review and redaction. A successful lab test is **not** a guarantee of Internet-facing security.
+All network addresses in this repository are **anonymized RFC 5737 documentation addresses** and are not the actual deployed address plan. No passwords, VPN keys, tokens or complete router configuration are included. Screenshots are intentionally omitted pending review and redaction. A successful lab test is **not** a guarantee of Internet-facing security.
 
 **Environment:** Personal educational HomeLab. Not a production deployment.
