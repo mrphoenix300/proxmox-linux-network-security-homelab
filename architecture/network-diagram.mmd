@@ -1,14 +1,39 @@
-flowchart TD
-    Internet[Internet] --> Router[Home router 192.0.2.1]
-    Router --> vmbr0[Proxmox vmbr0 - home LAN 192.0.2.0/24]
-    vmbr0 --> PVE[Proxmox pve 192.0.2.10]
-    vmbr0 --> Debian[Debian VM 100 - 192.0.2.3]
-    Debian --> PiHole[Pi-hole DNS]
-    Debian --> Docker[Docker monitoring bridge 203.0.113.0/24]
-    Docker --> Kuma[Uptime Kuma :3001]
-    Docker --> Portainer[Portainer :9000]
-    vmbr0 --> WAN[pfSense VM 101 WAN - DHCP]
-    WAN --> LAN[pfSense LAN - 198.51.100.1/24]
-    LAN --> vmbr1[Proxmox vmbr1 - isolated bridge]
-    vmbr1 --> Alpine[Alpine VM 102 - 198.51.100.100]
-    PVE -. temporary management IP 198.51.100.2 .-> vmbr1
+flowchart TB
+    Internet["Internet"] --> Router["Home router / gateway"]
+
+    subgraph PVE["Proxmox VE host - bare-metal hypervisor"]
+        direction TB
+        vmbr0["vmbr0 - Home LAN bridge<br/>(physical network)"]
+        Host["Proxmox host management<br/>(on vmbr0)"]
+        Debian["Debian VM 100<br/>Linux services"]
+        pfSense["pfSense VM 101<br/>WAN: vmbr0 / LAN: vmbr1"]
+        vmbr1["vmbr1 - Isolated LAN bridge<br/>(no physical port)"]
+        Alpine["Alpine VM 102<br/>isolated connectivity and firewall testing"]
+
+        PiHole["Pi-hole<br/>DNS and Web UI"]
+        Docker["Docker - monitoring bridge"]
+        Kuma["Uptime Kuma"]
+        Portainer["Portainer"]
+
+        vmbr0 --- Host
+        vmbr0 --- Debian
+        vmbr0 --- pfSense
+        pfSense --- vmbr1
+        vmbr1 --- Alpine
+        Debian --> PiHole
+        Debian --> Docker
+        Docker --> Kuma
+        Docker --> Portainer
+    end
+
+    Router --> vmbr0
+
+    classDef uplink fill:#eff6ff,stroke:#3b82f6,color:#172554
+    classDef host fill:#eef2ff,stroke:#818cf8,color:#312e81
+    classDef isolated fill:#dcfce7,stroke:#22c55e,color:#14532d
+    classDef service fill:#f5f3ff,stroke:#a78bfa,color:#4c1d95
+
+    class Internet,Router,vmbr0 uplink
+    class Host,Debian,pfSense host
+    class vmbr1,Alpine isolated
+    class PiHole,Docker,Kuma,Portainer service
